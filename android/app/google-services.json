@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "943379912307",
+    "project_id": "chat-gpt-4-a6dc1",
+    "storage_bucket": "chat-gpt-4-a6dc1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943379912307:android:a5cb24626dcfe3d65fbc06",
+        "android_client_info": {
+          "package_name": "com.example.gpt_4"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdZFP0CnHsyrTXsPXmztlptcL4Sq85PV0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
