@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gpt_4/Screens/Subscription/subscription_screen.dart';
 
-import '../../Subscription/subscription_screen.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({super.key});

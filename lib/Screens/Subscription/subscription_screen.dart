@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -62,7 +60,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                           textStyle: TextStyle(
                               fontSize: height * 0.025,
                               fontWeight: FontWeight.w500,
-                            color: Color(0xff717171)
+                            color: const Color(0xff717171)
                           ),
                         ),
                         'Our most powerful model,capable of advanced reasoning and creativity.'),
@@ -85,7 +83,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                       textStyle: TextStyle(
                           fontSize: height * 0.025,
                           fontWeight: FontWeight.w500,
-                          color: Color(0xff717171)
+                          color: const Color(0xff717171)
                       ),
                     ),
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.'),
@@ -106,7 +104,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                       textStyle: TextStyle(
                           fontSize: height * 0.025,
                           fontWeight: FontWeight.w500,
-                          color: Color(0xff717171)
+                          color: const Color(0xff717171)
                       ),
                     ),
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.'),
@@ -127,7 +125,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                       textStyle: TextStyle(
                           fontSize: height * 0.025,
                           fontWeight: FontWeight.w500,
-                          color: Color(0xff717171)
+                          color: const Color(0xff717171)
                       ),
                     ),
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.'),

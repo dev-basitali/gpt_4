@@ -18,7 +18,7 @@ class MyDrawer extends StatelessWidget {
     return Drawer(
       child: Column(
         children: [
-          Container(
+          SizedBox(
             height: height * 0.93,
             child: ListView(
               children: [
@@ -66,12 +66,12 @@ class MyDrawer extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (builder) => TextToText()));
+                        MaterialPageRoute(builder: (builder) => const TextToText()));
                   },
                   child: ListTile(
                     title: Text(
                       style: GoogleFonts.averageSans(
-                        textStyle : TextStyle(
+                        textStyle : const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700
                         )
@@ -83,12 +83,12 @@ class MyDrawer extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (builder) => TextToImage()));
+                        MaterialPageRoute(builder: (builder) => const TextToImage()));
                   },
                   child: ListTile(
                     title: Text(
                         style: GoogleFonts.averageSans(
-                            textStyle : TextStyle(
+                            textStyle : const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700
                             )
@@ -100,12 +100,12 @@ class MyDrawer extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (builder) => TextToAudio()));
+                        MaterialPageRoute(builder: (builder) => const TextToAudio()));
                   },
                   child: ListTile(
                     title: Text(
                         style: GoogleFonts.averageSans(
-                            textStyle : TextStyle(
+                            textStyle : const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700
                             )
@@ -117,12 +117,12 @@ class MyDrawer extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (builder) => ImageToVideo()));
+                        MaterialPageRoute(builder: (builder) => const ImageToVideo()));
                   },
                   child: ListTile(
                     title: Text(
                         style: GoogleFonts.averageSans(
-                            textStyle : TextStyle(
+                            textStyle : const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700
                             )
@@ -139,13 +139,13 @@ class MyDrawer extends StatelessWidget {
                   child: ListTile(
                     title: Text(
                         style: GoogleFonts.averageSans(
-                            textStyle : TextStyle(
+                            textStyle : const TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700
                             )
                         ),
                         'Explore GPTs'),
-                    leading: Image(image: AssetImage('assets/icons/explore.png')),
+                    leading: const Image(image: AssetImage('assets/icons/explore.png')),
                   ),
                 ),
                 const Divider(),
@@ -154,7 +154,7 @@ class MyDrawer extends StatelessWidget {
           ),
           InkWell(
             onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => UserProfile()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const UserProfile()));
             },
             child: SizedBox(
               width: width * 1,
@@ -166,7 +166,7 @@ class MyDrawer extends StatelessWidget {
                   child: Image.asset(
                       'assets/icons/user.png'),
                 ),
-                title: Text('Basit Ali'),
+                title: const Text('Basit Ali'),
                 trailing: Image.asset('assets/icons/more.png'),
               ),
             ),

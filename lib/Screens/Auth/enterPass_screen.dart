@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -85,7 +86,7 @@ class _EnterPasswordState extends State<EnterPassword> {
                           });
                         },
                         child: Text(
-                            style: TextStyle(color: Color(0xff9747FF)),
+                            style: const TextStyle(color: Color(0xff9747FF)),
                             isEditable ? 'Edit' : 'Edit'),
                       ),
                     ),
@@ -159,13 +160,13 @@ class _EnterPasswordState extends State<EnterPassword> {
                     ),
                   ),
                 ),
-                Gap(15),
+                const Gap(15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                         style: GoogleFonts.averageSans(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                             fontSize: 16,
                           ),
                         ),

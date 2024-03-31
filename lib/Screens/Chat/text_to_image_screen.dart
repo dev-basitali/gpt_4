@@ -20,9 +20,9 @@ class _TextToImageState extends State<TextToImage> {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chat App'),
+        title: const Text('Chat App'),
       ),
-      drawer: MyDrawer(),
+      drawer: const MyDrawer(),
       body: Column(
         children: [
           Expanded(
@@ -49,7 +49,7 @@ class _TextToImageState extends State<TextToImage> {
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(45),
-                          border: Border.all(color: Color(0xffE0E0E0))),
+                          border: Border.all(color: const Color(0xffE0E0E0))),
                       child: TextField(
                         controller: _controller,
                         decoration: InputDecoration(
@@ -128,7 +128,7 @@ class _TextToImageState extends State<TextToImage> {
           ),
           padding: const EdgeInsets.all(12),
           child: isUser
-              ? Text(text, style: TextStyle(color: Colors.black))
+              ? Text(text, style: const TextStyle(color: Colors.black))
               : Image.asset(text),
         ),
       ),

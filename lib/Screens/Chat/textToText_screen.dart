@@ -1,3 +1,4 @@
+
 import 'dart:convert';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -81,7 +82,7 @@ class _TextToTextState extends State<TextToText> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(title: Text('Chat App')),
+      appBar: AppBar(title: const Text('Chat App')),
       drawer: const MyDrawer(),
       body: Column(
         children: <Widget>[
@@ -142,14 +143,14 @@ class _TextToTextState extends State<TextToText> {
                                   messageType == MessageType.User
                                       ? 'You'
                                       : 'AI',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 12.0,
                                     color: Colors.grey,
                                   ),
                                 ),
                               ],
                             ),
-                            SizedBox(width: 8.0),
+                            const SizedBox(width: 8.0),
                             Flexible(
                               child: Container(
                                 constraints: BoxConstraints(
@@ -158,7 +159,7 @@ class _TextToTextState extends State<TextToText> {
                                 ),
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: Color(0xffE0E0E0),
+                                    color: const Color(0xffE0E0E0),
                                   ),
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(12.0),
@@ -222,7 +223,7 @@ class _TextToTextState extends State<TextToText> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(45),
                         border: Border.all(
-                          color: Color(0xffE0E0E0)
+                          color: const Color(0xffE0E0E0)
                         )
                       ),
                       child: TextField(

@@ -102,13 +102,13 @@ class _SignInState extends State<SignIn> {
                     ),
                   ),
                 ),
-                Gap(15),
+                const Gap(15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                         style: GoogleFonts.averageSans(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                             fontSize: 16,
                           ),
                         ),
@@ -119,7 +119,7 @@ class _SignInState extends State<SignIn> {
                       },
                       child: Text(
                           style: GoogleFonts.averageSans(
-                            textStyle: TextStyle(
+                            textStyle: const TextStyle(
                               color: Color(0xff9747FF),
                               fontSize: 16,
                             ),
@@ -135,14 +135,14 @@ class _SignInState extends State<SignIn> {
                     Container(
                       height: 1,
                       width: width * 0.4,
-                      color: Color(0xffE0E0E0),
+                      color: const Color(0xffE0E0E0),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: width * 0.04),
                       child: Center(
                         child: Text(
                             style: GoogleFonts.averageSans(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                 fontSize: 16,
                               ),
                             ),
