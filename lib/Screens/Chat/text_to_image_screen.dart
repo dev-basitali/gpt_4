@@ -10,8 +10,8 @@ class TextToImage extends StatefulWidget {
 }
 
 class _TextToImageState extends State<TextToImage> {
-  TextEditingController _controller = TextEditingController();
-  List<Map<String, dynamic>> _messages = []; // List to store messages
+  final TextEditingController _controller = TextEditingController();
+  final List<Map<String, dynamic>> _messages = []; // List to store messages
   String _responseImageUrl = '';
 
   @override

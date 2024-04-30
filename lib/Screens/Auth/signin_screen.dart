@@ -128,7 +128,7 @@ class _SignInState extends State<SignIn> {
                     ),
                   ],
                 ),
-                Gap(15),
+                const Gap(15),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -156,7 +156,7 @@ class _SignInState extends State<SignIn> {
                     ),
                   ],
                 ),
-                Gap(15),
+                const Gap(15),
                 InkWell(
                   onTap: () {},
                   child: Container(
@@ -227,7 +227,7 @@ class _SignInState extends State<SignIn> {
             ),
           ),
         ),
-      ),
+      )
     );
   }
 }

@@ -1,4 +1,4 @@
-package com.example.gpt_4
+package com.fasmart.aichatapp
 
 import io.flutter.embedding.android.FlutterActivity
 

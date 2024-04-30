@@ -43,11 +43,20 @@ dependencies:
   animated_text_kit: ^4.2.2
   stream:
   google_fonts:
+  audioplayers: ^6.0.0
+  image_picker: ^1.0.7
+  voice_message_package: ^2.2.1
+  sizer: ^2.0.15
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
+flutter_icons:
+  image_path: "assets/icons/mainIcon.png"
+  android: true
+  ios: true
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -71,6 +80,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/audio/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
