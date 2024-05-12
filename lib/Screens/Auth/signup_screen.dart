@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gpt_4/Screens/Auth/signUp_with_email.dart';
 import 'package:gpt_4/Screens/Auth/signin_screen.dart';
 
 class SignUp extends StatefulWidget {
@@ -111,7 +112,10 @@ class _SignUpState extends State<SignUp> {
                     ),
                     const Gap(15),
                     InkWell(
-                      onTap: (){},
+                      onTap: (){
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (builder) => SignUpWithEmail()));
+                      },
                       child: Container(
                         height: height * 0.07,
                         width: width * 0.9,

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import '../Modules/Education.dart';
-import '../Modules/by_gpt.dart';
-import '../Modules/dall_e.dart';
-import '../Modules/featured.dart';
-import '../Modules/lifeStyle.dart';
-import '../Modules/productivity.dart';
-import '../Modules/programing.dart';
-import '../Modules/research_and_analysis.dart';
-import '../Modules/tabs.dart';
-import '../Modules/trending.dart';
-import '../Modules/writing.dart';
+import '../../Modules/Education.dart';
+import '../../Modules/by_gpt.dart';
+import '../../Modules/dall_e.dart';
+import '../../Modules/featured.dart';
+import '../../Modules/lifeStyle.dart';
+import '../../Modules/productivity.dart';
+import '../../Modules/programing.dart';
+import '../../Modules/research_and_analysis.dart';
+import '../../Modules/tabs.dart';
+import '../../Modules/trending.dart';
+import '../../Modules/writing.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

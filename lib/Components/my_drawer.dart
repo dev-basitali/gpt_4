@@ -6,7 +6,7 @@ import '../Screens/Chat/image_to_video.dart';
 import '../Screens/Chat/textToText_screen.dart';
 import '../Screens/Chat/text_to_audio.dart';
 import '../Screens/UserProfile/userProfile_screen.dart';
-import '../Screens/home_screen.dart';
+import '../Screens/Explore/home_screen.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});

@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -46,19 +49,9 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDwG3WvpQaBVmzd_nRh4NZw8oslk9qrbLU',
-    appId: '1:943379912307:web:cab360caf29b5f0c5fbc06',
-    messagingSenderId: '943379912307',
-    projectId: 'chat-gpt-4-a6dc1',
-    authDomain: 'chat-gpt-4-a6dc1.firebaseapp.com',
-    storageBucket: 'chat-gpt-4-a6dc1.appspot.com',
-    measurementId: 'G-NKSGVV0ZGM',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBdZFP0CnHsyrTXsPXmztlptcL4Sq85PV0',
-    appId: '1:943379912307:android:a5cb24626dcfe3d65fbc06',
+    appId: '1:943379912307:android:80cbe791c97f03785fbc06',
     messagingSenderId: '943379912307',
     projectId: 'chat-gpt-4-a6dc1',
     storageBucket: 'chat-gpt-4-a6dc1.appspot.com',
@@ -70,6 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '943379912307',
     projectId: 'chat-gpt-4-a6dc1',
     storageBucket: 'chat-gpt-4-a6dc1.appspot.com',
+    androidClientId: '943379912307-643h2m2vsm7omkfe00mp43c7r1usquhu.apps.googleusercontent.com',
+    iosClientId: '943379912307-e79pr0otkovjt2k0cl5jrduinlcos3av.apps.googleusercontent.com',
     iosBundleId: 'com.example.gpt4',
   );
 }

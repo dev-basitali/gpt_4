@@ -9,10 +9,23 @@
       "client_info": {
         "mobilesdk_app_id": "1:943379912307:android:a5cb24626dcfe3d65fbc06",
         "android_client_info": {
-          "package_name": "com.fasmart.aichatapp"
+          "package_name": "com.example.gpt_4"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "943379912307-643h2m2vsm7omkfe00mp43c7r1usquhu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.gpt_4",
+            "certificate_hash": "606b62ca3f7b9587cc14f30c0ad8d01387428770"
+          }
+        },
+        {
+          "client_id": "943379912307-vgc4jmmeaash5krervma6niajp6ns9q6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBdZFP0CnHsyrTXsPXmztlptcL4Sq85PV0"
@@ -20,7 +33,55 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943379912307-vgc4jmmeaash5krervma6niajp6ns9q6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "943379912307-e79pr0otkovjt2k0cl5jrduinlcos3av.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gpt4"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943379912307:android:80cbe791c97f03785fbc06",
+        "android_client_info": {
+          "package_name": "com.fasmart.aichatapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "943379912307-vgc4jmmeaash5krervma6niajp6ns9q6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdZFP0CnHsyrTXsPXmztlptcL4Sq85PV0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943379912307-vgc4jmmeaash5krervma6niajp6ns9q6.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "943379912307-e79pr0otkovjt2k0cl5jrduinlcos3av.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.gpt4"
+              }
+            }
+          ]
         }
       }
     }

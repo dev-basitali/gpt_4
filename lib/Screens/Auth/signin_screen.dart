@@ -3,6 +3,8 @@ import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gpt_4/Screens/Auth/enterPass_screen.dart';
 
+import '../../Services/auth_services.dart';
+
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
 
@@ -11,6 +13,7 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  final _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -158,7 +161,9 @@ class _SignInState extends State<SignIn> {
                 ),
                 const Gap(15),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    authenticateWithGoogle(context: context);
+                  },
                   child: Container(
                     height: height * 0.07,
                     width: width * 0.9,
@@ -229,5 +234,12 @@ class _SignInState extends State<SignIn> {
         ),
       )
     );
+  }
+  Future<void> authenticateWithGoogle({required BuildContext context}) async {
+    try {
+      await AuthService.signInWithGoogle();
+    }catch(e) {
+      print ('error');
+    }
   }
 }
