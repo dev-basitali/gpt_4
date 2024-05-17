@@ -45,10 +45,11 @@ dependencies:
   google_fonts:
   audioplayers: ^6.0.0
   image_picker: ^1.0.7
-  voice_message_package: ^2.2.1
+  voice_message_package: ^2.1.4
   sizer: ^2.0.15
   google_sign_in: ^6.2.1
   video_player:
+  cool_alert: ^2.0.1
 
 
 dev_dependencies:

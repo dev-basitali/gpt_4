@@ -1,5 +1,12 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 import 'package:voice_message_package/voice_message_package.dart';
+
 import '../../Components/my_drawer.dart';
 
 class TextToAudio extends StatefulWidget {
@@ -12,7 +19,73 @@ class TextToAudio extends StatefulWidget {
 class _TextToAudioState extends State<TextToAudio> {
   final TextEditingController _controller = TextEditingController();
   final List<Map<String, dynamic>> _messages = [];
-  String responseAudioPath = '';
+  late String responseAudioPath;
+
+  Future<void> makePostRequest(String text) async {
+    var url = Uri.parse('https://uc8hso.buildship.run/talk-to-airtable');
+    var body = {'text': text};
+
+    try {
+      var response = await http.post(url, body: body);
+
+      if (response.statusCode == 200) {
+        print('success');
+        var responseJson = jsonDecode(response.body);
+        String base64Audio = responseJson['outPut'];
+
+        // Decode base64 string to bytes
+        List<int> audioBytes = base64Decode(base64Audio);
+
+        // Get the temporary directory
+        Directory tempDir = await getTemporaryDirectory();
+        String tempPath = tempDir.path;
+
+        // Create a file to write the audio bytes to
+        File audioFile = File('$tempPath/output.mp3');
+        await audioFile.writeAsBytes(audioBytes);
+
+        // Update the state to display the voice message
+        setState(() {
+          responseAudioPath = audioFile.path;
+          _messages.insert(0, {
+            'audioSrc': responseAudioPath,
+            'isUser': false,
+            'isVoice': true,
+            'isFile': true,
+          });
+        });
+        print(responseJson);
+      } else {
+        print('Error: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error: $error');
+    }
+  }
+
+  Widget _buildMessageBubble(String text, bool isUser) {
+    return Align(
+      alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: isUser
+                ? Border.all(color: Colors.black)
+                : Border.all(color: Colors.white),
+          ),
+          padding: EdgeInsets.all(12),
+          child: Text(
+            text,
+            style: TextStyle(color: isUser ? Colors.black : Colors.black54),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -32,7 +105,6 @@ class _TextToAudioState extends State<TextToAudio> {
                 final message = _messages[index];
                 if (message['isVoice'] == true) {
                   return Column(
-
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Column(
@@ -60,7 +132,6 @@ class _TextToAudioState extends State<TextToAudio> {
                               isFile: message['isFile'],
                               maxDuration: Duration(minutes: 10),
                             ),
-
                             activeSliderColor: Color(0xff9747FF),
                             circlesColor: Color(0xff9747FF),
                             innerPadding: 12,
@@ -137,43 +208,7 @@ class _TextToAudioState extends State<TextToAudio> {
 
   void _sendMessage(String text) {
     _messages.insert(0, {'text': text, 'isUser': true, 'isVoice': false});
-    // Simulate AI response (for demonstration purposes)
-    _playResponseAudio(text);
-  }
-
-  void _playResponseAudio(String inputText) {
-    // Replace this with the path to your audio file or URL
-    responseAudioPath =
-        'https://dl.solahangs.com/Music/1403/02/H/128/Hiphopologist%20-%20Shakkak%20%28128%29.mp3';
-    _messages.insert(0, {
-      'audioSrc': responseAudioPath,
-      'isUser': false,
-      'isVoice': true,
-      'isFile': false,
-    });
-    // No need to play the audio here, VoiceMessageView will handle it
-    setState(() {});
-  }
-
-  Widget _buildMessageBubble(String text, bool isUser) {
-    return Align(
-      alignment: isUser ? Alignment.centerRight : Alignment.centerLeft,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-            border: isUser
-                ? Border.all(color: Colors.black)
-                : Border.all(color: Colors.white),
-          ),
-          padding: EdgeInsets.all(12),
-          child: isUser
-              ? Text(text, style: const TextStyle(color: Colors.black))
-              : Text(text),
-        ),
-      ),
-    );
+    // Send the text to the server and handle the response
+    makePostRequest(text);
   }
 }

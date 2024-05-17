@@ -1,4 +1,6 @@
 
+import 'package:cool_alert/cool_alert.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,6 +15,8 @@ class EnterPassword extends StatefulWidget {
 }
 
 class _EnterPasswordState extends State<EnterPassword> {
+  final email =TextEditingController();
+  final password = TextEditingController();
   bool isEditable = false;
   @override
   Widget build(BuildContext context) {
@@ -70,6 +74,7 @@ class _EnterPasswordState extends State<EnterPassword> {
                 SizedBox(
                   width: width * 0.9,
                   child: TextFormField(
+                    controller: email,
                     enabled: true,
                     readOnly: !isEditable,
                     decoration: InputDecoration(
@@ -110,6 +115,7 @@ class _EnterPasswordState extends State<EnterPassword> {
                 SizedBox(
                   width: width * 0.9,
                   child: TextFormField(
+                    controller: password,
                     decoration: InputDecoration(
                       hintText: 'Enter your password',
                       hintStyle: GoogleFonts.lato(
@@ -192,5 +198,34 @@ class _EnterPasswordState extends State<EnterPassword> {
         ),
       ),
     );
+  }
+  Future<void> signIn () async {
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email.text,
+          password: password.text,
+      );
+      if(credential.user!=null){
+        Navigator.push(context, MaterialPageRoute(builder: (builder) => TextToText()));
+        email.clear();
+        password.clear();
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+        CoolAlert.show(
+          context: context,
+          type: CoolAlertType.error,
+          text: "No user found for that email.",
+        );
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+        CoolAlert.show(
+          context: context,
+          type: CoolAlertType.error,
+          text: "Wrong password provided for that user.",
+        );
+      }
+    }
   }
 }

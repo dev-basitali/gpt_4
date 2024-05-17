@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:cool_alert/cool_alert.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -125,10 +127,9 @@ class _SignUpWithEmailState extends State<SignUpWithEmail> {
                 ),
                 const Gap(60),
                 InkWell(
-                  onTap: _signUp,
-                  //     (){
-                  //   // Navigator.push(context, MaterialPageRoute(builder: (context) => const TextToText()));
-                  // },
+                  onTap: (){
+                    signUp();
+                  },
                   child: Container(
                     width: width * 0.9,
                     height: height * 0.07,
@@ -181,11 +182,44 @@ class _SignUpWithEmailState extends State<SignUpWithEmail> {
       ),
     );
   }
-  _signUp()async{
-  final user = await _auth.createUserWithEmailAndPassword(email.text, password.text);
-  if(user!= null){
-    log('User created successfully');
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const TextToText()));
-  }
+ void signUp() async{
+   try {
+     final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+       email: email.text,
+       password: password.text,
+     );
+     if(credential.additionalUserInfo!.isNewUser){
+       Navigator.push(context, MaterialPageRoute(builder: (builder) => TextToText()));
+       email.clear();
+       password.clear();
+     }
+
+     else{
+       CoolAlert.show(
+         context: context,
+         type: CoolAlertType.error,
+         text: "User already exists",
+       );
+     }
+
+   } on FirebaseAuthException catch (e) {
+     if (e.code == 'weak-password') {
+       print('The password provided is too weak.');
+       CoolAlert.show(
+         context: context,
+         type: CoolAlertType.error,
+         text: "Your password is too weak",
+       );
+     } else if (e.code == 'email-already-in-use') {
+       print('The account already exists for that email.');
+       CoolAlert.show(
+         context: context,
+         type: CoolAlertType.error,
+         text: "The account already exists for that email.",
+       );
+     }
+   } catch (e) {
+     print(e);
+   }
   }
 }
