@@ -239,7 +239,7 @@ class _SignInState extends State<SignIn> {
     try {
       await AuthService.signInWithGoogle();
     }catch(e) {
-      print ('error');
+      print (e);
     }
   }
 }

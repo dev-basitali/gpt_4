@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import '../../Components/my_drawer.dart';
 
@@ -11,8 +14,37 @@ class TextToImage extends StatefulWidget {
 
 class _TextToImageState extends State<TextToImage> {
   final TextEditingController _controller = TextEditingController();
-  final List<Map<String, dynamic>> _messages = []; // List to store messages
-  String _responseImageUrl = '';
+  final List<Map<String, dynamic>> _messages = [];
+
+  Future<void> generateImage(String text) async {
+    final url = Uri.parse('https://api.openai.com/v1/images/generations');
+    final apiKey = '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'; // Replace with your actual API key
+
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $apiKey',
+      },
+      body: jsonEncode({
+        'model': 'dall-e-3',
+        'prompt': text,
+        'n': 1,
+        'size': '1024x1024',
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final imageUrl = data['data'][0]['url'];
+      print(imageUrl);
+      setState(() {
+        _messages.insert(0, {'text': imageUrl, 'isUser': false}); // Add AI response to the list
+      });
+    } else {
+      print('Failed to generate image: ${response.body}');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,24 +125,14 @@ class _TextToImageState extends State<TextToImage> {
 
   // Function to send a message
   void _sendMessage(String text) {
-    _messages.insert(
-        0, {'text': text, 'isUser': true}); // Add user message to the list
-    // Simulate AI response (for demonstration purposes)
-    _responseImageUrl = _getResponseImageUrl(text);
-    if (_responseImageUrl.isNotEmpty) {
-      _messages.insert(0, {
-        'text': _responseImageUrl,
-        'isUser': false
-      }); // Add AI response to the list
-    }
+    setState(() {
+      _messages.insert(0, {'text': text, 'isUser': true}); // Add user message to the list
+    });
+    // Call generateImage and handle the response
+    generateImage(text);
   }
 
-  // Placeholder function to simulate AI response with an image URL
-  String _getResponseImageUrl(String inputText) {
-    // This is where you would integrate with your AI model to get the response image URL
-    // For demonstration purposes, just return a static image URL
-    return 'assets/images/sample.png';
-  }
+
 
   // Function to build message bubble
   Widget _buildMessageBubble(String text, bool isUser) {
@@ -129,7 +151,7 @@ class _TextToImageState extends State<TextToImage> {
           padding: const EdgeInsets.all(12),
           child: isUser
               ? Text(text, style: const TextStyle(color: Colors.black))
-              : Image.asset(text),
+              : Image.network(text), // Display image from URL
         ),
       ),
     );
