@@ -39,6 +39,8 @@ dependencies:
   cloud_firestore: ^4.15.4
   firebase_core: ^2.25.4
   firebase_auth: ^4.5.0
+  firebase_storage: ^11.7.7
+  firebase_app_check: ^0.2.2+7
   http:
   animated_text_kit: ^4.2.2
   stream:
