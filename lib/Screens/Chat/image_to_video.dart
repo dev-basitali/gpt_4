@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
 import 'package:gpt_4/Components/my_drawer.dart';
+import 'package:http/http.dart' as http;
 
 class ImageToVideo extends StatefulWidget {
   const ImageToVideo({super.key});
@@ -15,6 +17,29 @@ class ImageToVideo extends StatefulWidget {
 class _ImageToVideoState extends State<ImageToVideo> {
   final List<Map<String, dynamic>> _messages = []; // List to store messages
   File? _imageFile;
+  UploadTask? _uploadTask;
+
+  void makePostRequest(String text) async {
+    var url = Uri.parse('https://uc8hso.buildship.run/image-to-video');
+    var body = {'text': text};
+
+    try {
+      var response = await http.post(url, body: body);
+
+      if (response.statusCode == 200) {
+        var response1 = jsonDecode(response.body);
+        _getResponseVideoUrl(response1['outPut']);
+      } else {
+        print('Error: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error: $error');
+    } finally {
+      setState(() {
+
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +77,6 @@ class _ImageToVideoState extends State<ImageToVideo> {
                   onTap: () {
                     setState(() {
                       if (_imageFile != null) {
-                        _sendMessage(_imageFile!.path); // Send image path
                         _uploadImage(_imageFile!);
                         _imageFile = null;
                       }
@@ -87,13 +111,19 @@ class _ImageToVideoState extends State<ImageToVideo> {
       // Generate a unique file name
       String fileName = DateTime.now().millisecondsSinceEpoch.toString();
       // Upload image to Firebase Storage
-      UploadTask uploadTask = FirebaseStorage.instance
+      _uploadTask = FirebaseStorage.instance
           .ref()
           .child('uploads/$fileName')
           .putFile(image);
-      TaskSnapshot snapshot = await uploadTask;
-      String downloadUrl = await snapshot.ref.getDownloadURL();
-      _sendMessage(downloadUrl); // Send the download URL as message
+
+      _uploadTask!.whenComplete(() async {
+        if (_uploadTask!.snapshot.state == TaskState.success) {
+          String downloadUrl = await _uploadTask!.snapshot.ref.getDownloadURL();
+          _sendMessage(downloadUrl); // Send the download URL as message
+        } else {
+          print('Upload failed');
+        }
+      });
     } catch (e) {
       print('Error uploading image: $e');
     }
@@ -139,7 +169,9 @@ class _ImageToVideoState extends State<ImageToVideo> {
           ),
           padding: const EdgeInsets.all(12),
           child: isUser
-              ? Text(text, style: const TextStyle(color: Colors.black))
+              ? text.contains('https')
+                  ? Text(text)
+                  : Text(text, style: const TextStyle(color: Colors.black))
               : isVideo
                   ? VideoWidget(url: text)
                   : Image.asset(text),
