@@ -18,28 +18,7 @@ class _ImageToVideoState extends State<ImageToVideo> {
   final List<Map<String, dynamic>> _messages = []; // List to store messages
   File? _imageFile;
   UploadTask? _uploadTask;
-
-  void makePostRequest(String text) async {
-    var url = Uri.parse('https://uc8hso.buildship.run/image-to-video');
-    var body = {'text': text};
-
-    try {
-      var response = await http.post(url, body: body);
-
-      if (response.statusCode == 200) {
-        var response1 = jsonDecode(response.body);
-        _getResponseVideoUrl(response1['outPut']);
-      } else {
-        print('Error: ${response.statusCode}');
-      }
-    } catch (error) {
-      print('Error: $error');
-    } finally {
-      setState(() {
-
-      });
-    }
-  }
+  Future<String>? _uploadFuture;
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +70,22 @@ class _ImageToVideoState extends State<ImageToVideo> {
               ],
             ),
           ),
+          _uploadFuture != null
+              ? FutureBuilder<String>(
+                  future: _uploadFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else if (snapshot.hasData) {
+                      return Text('Uploaded to: ${snapshot.data}');
+                    } else {
+                      return Container();
+                    }
+                  },
+                )
+              : Container(),
         ],
       ),
     );
@@ -116,41 +111,56 @@ class _ImageToVideoState extends State<ImageToVideo> {
           .child('uploads/$fileName')
           .putFile(image);
 
-      _uploadTask!.whenComplete(() async {
+      await _uploadTask!.whenComplete(() async {
         if (_uploadTask!.snapshot.state == TaskState.success) {
           String downloadUrl = await _uploadTask!.snapshot.ref.getDownloadURL();
-          _sendMessage(downloadUrl); // Send the download URL as message
+          setState(() {});
+          await _sendMessage(downloadUrl); // Send the download URL as message
+          return downloadUrl;
         } else {
-          print('Upload failed');
+          throw Exception('Upload failed');
         }
       });
     } catch (e) {
-      print('Error uploading image: $e');
+      throw Exception('Error uploading image: $e');
     }
   }
 
-  void _sendMessage(String text) {
-    _messages.insert(0, {
-      'text': text,
-      'isUser': true,
-      'isVideo': false
-    }); // Add user message to the list
-    // Simulate AI response (for demonstration purposes)
-    String responseVideoUrl = _getResponseVideoUrl(text);
-    if (responseVideoUrl.isNotEmpty) {
+  Future<void> _sendMessage(String text) async {
+    setState(() {
+      _messages.insert(0, {'text': text, 'isUser': true, 'isVideo': false});
+    });
+    await makePostRequest(text);
+  }
+
+  void _getResponseVideoUrl(String output) {
+    setState(() {
       _messages.insert(0, {
-        'text': responseVideoUrl,
+        'text': output,
         'isUser': false,
         'isVideo': true,
-      }); // Add AI response to the list
-    }
+      });
+    });
   }
 
-  // Placeholder function to simulate AI response with a video URL
-  String _getResponseVideoUrl(String inputText) {
-    // This is where you would integrate with your AI model to get the response video URL
-    // For demonstration purposes, just return a static video URL
-    return 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4';
+  Future<void> makePostRequest(String text) async {
+    var url = Uri.parse('https://uc8hso.buildship.run/image-to-video');
+    var body = {'text': text};
+
+    try {
+      var response = await http.post(url, body: body);
+
+      if (response.statusCode == 200) {
+        var response1 = jsonDecode(response.body);
+        _getResponseVideoUrl(response1['outPut']);
+      } else {
+        print('Error: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error: $error');
+    } finally {
+      setState(() {});
+    }
   }
 
   // Function to build message bubble
